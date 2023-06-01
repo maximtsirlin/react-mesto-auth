@@ -12,6 +12,10 @@ import ImagePopup from './ImagePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 import Login from './Login'
+import Register from './Register'
+import ProtectedRoute from './ProtectedRoute'
+
+
 
 
 
@@ -147,6 +151,24 @@ function App(props) {
       <div className="page">
 
         <Header />
+        <Routes>
+          <Route 
+          path="/" 
+          element={ <ProtectedRoute 
+          element={Main}
+          onEditAvatar={handleEditAvatarClick}
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          // onCardDelete={handleTrashClick}
+          currentUser={currentUser}
+          cards={cards}
+          />} 
+          />
+          <Route path="/sign-up" element={<Register />} />
+          <Route path="/sign-in" element={<Login/>} />
+        </Routes>
         <Main
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}

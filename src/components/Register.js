@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 
 const auth = () => {
     return (
@@ -9,7 +11,7 @@ const auth = () => {
                     <div className='auth__container-inputs'>
                         <input type='text' className='auth__input' placeholder='E-mail' />
                         <span className='auth__input-error'></span>
-                        <input type='password' className='login__input' placeholder='Пароль' />
+                        <input type='password' className='auth__input' placeholder='Пароль' />
                         <span className='auth__input-error'></span>
                     </div>
                     <button type='submit' className='auth__button'>Зарегистрироваться</button>

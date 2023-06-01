@@ -61,4 +61,12 @@
 @import url(./blocks/form/__input-error/_active/form__input-error_active.css);
 
 
-@import url(./blocks/login/login.css);
+@import url(./blocks/auth/auth.css);
+@import url(./blocks/auth/__button/auth__button.css);
+@import url(./blocks/auth/__container-inputs/auth__container-inputs.css);
+@import url(./blocks/auth/__content/auth__content.css);
+@import url(./blocks/auth/__form/auth__form.css);
+@import url(./blocks/auth/__input/auth__input.css);
+@import url(./blocks/auth/__input-error/auth__input-error.css);
+@import url(./blocks/auth/__link/auth__link.css);
+@import url(./blocks/auth/__title/auth__title.css);
