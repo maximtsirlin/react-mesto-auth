@@ -1,0 +1,11 @@
+.cards__cell {
+  margin: 0 auto;
+  width: 282px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+}

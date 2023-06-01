@@ -1,0 +1,10 @@
+.profile__item {
+  width: 100%;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .profile__item {
+    text-align: center;
+  }
+}

@@ -1,0 +1,35 @@
+.form__save {
+    margin-top: 40px;
+    padding: 13px;
+    background-color: black;
+    color: white;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    border: none;
+    border-radius: 2px;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+}
+
+
+.form__save:hover {
+    opacity: 0.8;
+}
+
+.form__save:disabled {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    background-color: transparent;
+    opacity: 0.8;
+    color: rgba(0, 0, 0, 0.2);
+}
+
+@media only screen and (max-width: 425px) {
+    .form__save {
+        margin-top: 42px;
+        font-size: 14px;
+        line-height: 17px;
+    }
+}

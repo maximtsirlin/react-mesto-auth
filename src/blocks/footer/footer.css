@@ -1,0 +1,22 @@
+.footer {
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding-top: 71px;
+    padding-bottom: 24px;
+    list-style-type: none;
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 425px) {
+    .footer {
+        padding-top: 52px;
+        padding-left: 15px;
+    }
+}
+

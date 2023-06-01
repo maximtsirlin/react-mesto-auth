@@ -1,0 +1,5 @@
+.form__input_invalid {
+    border-bottom: 1px solid #e53e3e;
+    color: #e53e5e;
+    outline: none;
+}
