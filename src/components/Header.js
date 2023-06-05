@@ -15,7 +15,7 @@ function Header() {
         <Route path="/" element={
           <>
             <p className='header__link'>{ }</p>
-            <Link className='header__link header__link_muted' to='/sign-in'>Выйти</Link>
+            <Link className='header__link header__link_inactive' to='/sign-in'>Выйти</Link>
           </>
         } />
 
@@ -24,11 +24,9 @@ function Header() {
         } />
 
 
-
         <Route path='/sigh-up' element={
           <Link className='header__link' to='/sign-in'>Регистрация</Link>
         } />
-
 
 
 

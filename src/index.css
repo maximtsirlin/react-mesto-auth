@@ -40,10 +40,13 @@
 @import url(./blocks/popup/__close/_theme/popup__close_theme_position.css);
 @import url(./blocks/popup/__figcaption/popup__figcaption.css);
 
+<<<<<<< HEAD
 @import url(./blocks/popup/__icons/popup__icons.css);
 @import url(./blocks/popup/__title/popup__title.css);
 
 
+=======
+>>>>>>> 0276fcb797730653a1614ab5a2d17d7753d805b7
 @import url(./blocks/items/items.css);
 
 @import url(./blocks/buttons/__delete/button__delete.css);
