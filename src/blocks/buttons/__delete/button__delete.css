@@ -1,0 +1,5 @@
+.button__delete {
+    background-image: url('/src/images/Delete.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+  }

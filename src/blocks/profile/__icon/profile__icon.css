@@ -1,0 +1,36 @@
+.profile__icon {
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  background-image: url(../../../images/pencil.svg);
+  background-size: 14px;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  border: 1px solid rgb(255 255 255);
+  margin-top: 36px;
+  margin-left: 10px;
+}
+
+.profile__icon:hover {
+  opacity: 0.6;
+}
+
+@media only screen and (max-width: 768px) {
+  .profile__icon {
+    margin-top: 15px;
+  }
+
+}
+
+@media only screen and (max-width: 425px) {
+  .profile__icon {
+    padding-left: 10px;
+    width: 18px;
+    height: 18px;
+    margin-top: 10px;
+    margin-right: 23px;
+    background-size: 9px;
+  }
+
+}

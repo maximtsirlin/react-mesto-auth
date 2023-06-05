@@ -1,0 +1,5 @@
+.button__edit {
+    background-image: url('/src/images/Edit.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+  }

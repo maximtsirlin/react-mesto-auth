@@ -1,0 +1,18 @@
+.profile__image {
+  border-radius: 50%;
+  box-sizing: border-box;
+  grid-column: 1;
+  grid-row: 1/span 2;
+  height: 120px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 120px;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .profile__image {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

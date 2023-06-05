@@ -1,0 +1,29 @@
+.profile__image-overlay {
+    background-color: rgba(0,0,0,.8);
+    background-image: url(../../../images/pencil.svg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 26px;
+    border-radius: 50%;
+    grid-column: 1;
+    grid-row: 1/span 2;
+    height: 120px;
+    opacity: 0;
+    transition: .3s ease;
+    width: 120px;
+    z-index: 1;
+}
+
+
+.profile__image-overlay:hover {
+    opacity: 0.8;
+  }
+  
+
+
+  @media only screen and (max-width: 768px) {
+    .profile__image-overlay {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }

@@ -1,0 +1,5 @@
+.auth__container-inputs {
+    display: flex;
+    flex-direction: column;
+    /* margin: 0 0 186px; */
+  }

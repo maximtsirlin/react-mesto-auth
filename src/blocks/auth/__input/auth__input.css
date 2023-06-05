@@ -1,0 +1,30 @@
+.auth__input {
+    width: 358px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #CCCCCC;
+    padding: 0 0 8px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+
+    color: #FFFFFF;
+    margin-top: 15px;
+}
+
+/* .auth__input:last-of-type {
+    width: 358px;
+} */
+
+
+
+@media only screen and (max-width: 425px) {
+    .auth__input {
+        margin-top: 20px;
+        width: 287px;
+    }
+  }
+
+
+
