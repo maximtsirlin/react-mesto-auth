@@ -1,5 +1,5 @@
 .auth__input-error {
-<<<<<<< HEAD
+
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -8,15 +8,5 @@
     min-height: 24px;
     opacity: 1;
     margin: 0 0 6px;
-=======
-        font-style: normal;
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 12px;
-        color: #ff0000;
-        min-height: 24px;
-        opacity: 1;
-        margin: 0 0 6px;
->>>>>>> 0276fcb797730653a1614ab5a2d17d7753d805b7
 
 }
