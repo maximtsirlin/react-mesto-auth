@@ -4,7 +4,7 @@ import React from 'react';
 
 const InfoTooltip = (props) => {
     const { isSuccess, isOpen, onClose, } = props;
-    // usePopupClose(isOpen, onClose);
+    
     return (
         <div className={`popup popup_opened ${isOpen ? 'popup_opened' : ''}`}>
             <div className='popup__container'>
@@ -13,13 +13,9 @@ const InfoTooltip = (props) => {
                     className={`popup__close`}
                     onClick={onClose}
                 ></button>
-                <div className={`popup__icons`
-                    // ${isSuccess ? 'success' : 'error'}`
-                }></div>
+                <div className={`popup__icons ${isSuccess ? 'success' : 'error'}`}></div>
                 <h2 className="popup__title popup__title_center">
-                    {/* {isSuccess ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз.'} */}
-                    Вы успешно зарегистрировались!
-
+                    {isSuccess ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз.'}
                 </h2>
             </div>
 

@@ -1,6 +1,6 @@
 import logo from '../images/logo.svg';
 import React from 'react';
-import {Route, Routes, Link} from 'react-router-dom'
+import { Route, Routes, Link } from 'react-router-dom'
 
 function Header() {
   return (
@@ -12,6 +12,51 @@ function Header() {
       />
       <Routes>
 
+        {/* <Route exact path="/"  element={
+          <>
+                <button className={`${props.hamburgerStatus ? "header__hamburger-button_active" : "header__hamburger-button"}`} onClick={props.onHamburgerMenuClick} type="button" ></button>
+                </>
+              } /> */}
+
+
+
+        <Route path="/sign-in" element={
+          <>
+            <Link className="header__auth-link" to="/sign-up">
+              Регистрация
+            </Link>
+          </>
+        } />
+
+        <Route path="/sign-up" element={
+          <>
+            <Link className="header__auth-link" to="/sign-in">
+              Войти
+            </Link>
+          </>
+        } />
+
+{/* 
+        <Route exact path="/" element={
+          <>
+          <p className="header__auth-email">{props.email}</p>
+          <button
+            className="header__auth-sign-out-button button"
+            onClick={props.onSignOut}>Выйти</button>
+            </>
+          } /> */}
+
+
+
+
+
+
+
+        {/* <Route path='/sigh-up' element={
+          <Link className='header__link' to='/sign-in'>Регистрация</Link>
+        } />
+
+
         <Route path="/" element={
           <>
             <p className='header__link'>{ }</p>
@@ -21,12 +66,9 @@ function Header() {
 
         <Route path='/sigh-up' element={
           <Link className='header__link' to='/sign-in'>Войти</Link>
-        } />
+        } /> */}
 
 
-        <Route path='/sigh-up' element={
-          <Link className='header__link' to='/sign-in'>Регистрация</Link>
-        } />
 
 
 

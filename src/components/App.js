@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory, Routes } from 'react-router-dom';
+
 
 import api from '../utils/Api.js';
 import Header from './Header';
@@ -14,12 +15,10 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import Login from './Login'
 import Register from './Register'
 import ProtectedRoute from './ProtectedRoute'
-
+import Hamburger from './Hamburger';
 import InfoTooltip from './InfoTooltip'
 
-
-
-
+import * as auth from '../utils/auth';
 
 
 function App(props) {
@@ -33,6 +32,9 @@ function App(props) {
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [hamburgerMenu, setHamburgerMenu] = useState(false);
+  const [email, setEmail] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const handleEditProfileClick = () => setEditProfilePopupOpen(true);
   const handleAddPlaceClick = () => setAddPlacePopupOpen(true)
@@ -46,7 +48,12 @@ function App(props) {
         setCards(initialCards);
       })
       .catch((err) => console.log(err));
+      if (localStorage.getItem('jwt')){
+        setLoggedIn(true)
+      }
   }, [])
+
+
 
 
 
@@ -149,43 +156,58 @@ function App(props) {
 
   };
 
+  function handleHamburgerMenuClick() {
+    setHamburgerMenu((prevHamburgerMenuState) => !prevHamburgerMenuState);
+  }
+
+  function onSignOut() {
+    // localStorage.removeItem('jwt');
+    // setLoggedIn(false);
+    // setHamburgerMenu(false);
+    // history.push('/sign-in');
+  }
+
+  function onSignOut() {
+   
+  }
 
   return (
 
     <CurrentUserContext.Provider value={currentUser}>
 
       <div className="page">
+        <Hamburger
+          isOpen={hamburgerMenu}
+          onHamburgerMenuClick={handleHamburgerMenuClick}
+          email={email}
+          onSignOut={onSignOut}
+        />
 
         <Header />
         <Routes>
           <Route
             path="/"
-            element={<ProtectedRoute
-              element={Main}
-              onEditAvatar={handleEditAvatarClick}
-              onEditProfile={handleEditProfileClick}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              onCardLike={handleCardLike}
-              // onCardDelete={handleTrashClick}
-              currentUser={currentUser}
-              cards={cards}
-            />}
+            element={(
+              <ProtectedRoute
+                element={Main}
+                onEditAvatar={handleEditAvatarClick}
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onCardClick={handleCardClick}
+                onCardLike={handleCardLike}
+                // onCardDelete={handleTrashClick}
+                currentUser={currentUser}
+                cards={cards}
+                loggedIn={loggedIn}
+              />
+            )}
           />
+          
           <Route path="/sign-up" element={<Register />} />
           <Route path="/sign-in" element={<Login />} />
-        </Routes>
-        <Main
-          onEditAvatar={handleEditAvatarClick}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-          currentUser={currentUser}
-          cards={cards}
-        />
 
+        </Routes>
+        
         <Footer />
 
         <EditProfilePopup
@@ -215,11 +237,11 @@ function App(props) {
           onClose={closeAllPopups}
         />
 
-        <InfoTooltip
-          isOpen={isInfoTooltipPopupOpen}
-          onClose={closeAllPopups}
-        // isSuccess={}
-        />
+        {/* <InfoTooltip
+        isOpen={isInfoTooltipPopupOpen}
+        onClose={closeAllPopups}
+      // isSuccess={}
+      /> */}
 
       </div>
     </CurrentUserContext.Provider>

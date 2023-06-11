@@ -4,6 +4,8 @@
 
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__auth-link/header__auth-link.css);
+
 
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__form/profile__form.css);
@@ -76,3 +78,11 @@
 @import url(./blocks/auth/__input-error/auth__input-error.css);
 @import url(./blocks/auth/__link/auth__link.css);
 @import url(./blocks/auth/__title/auth__title.css);
+
+
+@import url(./blocks/hamburger-menu/hamburger-menu.css);
+@import url(./blocks/hamburger-menu/__auth-email/hamburger__auth-email.css);
+@import url(./blocks/hamburger-menu/__auth-sign-out-button/hamburger__auth-sign-out-button.css);
+@import url(./blocks/hamburger-menu/__content/hamburger-menu__content.css);
+@import url(./blocks/hamburger-menu/_opened/hamburger-menu_opened.css);
+
