@@ -24,7 +24,6 @@ function PopupWithForm(props) {
           <button
             className={`form__save form__save_${name} .form__save_inactive`}
             type="submit"
-          // disabled
           >
             {isLoading ? 'Сохранение...' : buttonText}
 

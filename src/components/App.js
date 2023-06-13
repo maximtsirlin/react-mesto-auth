@@ -27,7 +27,6 @@ function App(props) {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [isFullImagePopupOpen, setFullImagePopupOpen] = useState(false);
-  const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
 
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState({});
@@ -50,9 +49,6 @@ function App(props) {
 
   const navigate = useNavigate();
 
-
-  // const [isSuccess, setIsSuccess] = useState(false);
-  // const [userEmail, setUserEmail] = useState('');
 
   const handleEditProfileClick = () => setEditProfilePopupOpen(true);
   const handleAddPlaceClick = () => setAddPlacePopupOpen(true)
@@ -97,10 +93,6 @@ function App(props) {
 
 
 
-
-
-
-
   const handleRegister = (email, password) => {
     auth
       .register(email, password)
@@ -122,8 +114,6 @@ function App(props) {
         console.log(err);
       });
   };
-
- 
 
  
 
@@ -171,9 +161,6 @@ function App(props) {
 
 
 
-
-
-
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userInfo, initialCards]) => {
@@ -185,8 +172,6 @@ function App(props) {
       setLoggedIn(true)
     }
   }, [])
-
-
 
 
 
@@ -285,20 +270,13 @@ function App(props) {
     setEditAvatarPopupOpen(false);
     setFullImagePopupOpen(false);
     setSelectedCard({});
-    setInfoTooltipPopupOpen(false)
+    setIsOpenInfoTooltip(false);
 
   };
 
   function handleHamburgerMenuClick() {
     setHamburgerMenu((prevHamburgerMenuState) => !prevHamburgerMenuState);
   }
-
-
-
-  //handleSignout - передается в компонент Header, в котором будет кнопка выхода, 
-  //при нажатии на кнопку выхода происходит очистка хранилища, перенаправление на 
-  //страницу входа и очистка стейта, отвечающего за состояние авторизации
-
 
 
   function onSignOut() {
@@ -337,14 +315,12 @@ function App(props) {
                 onAddPlace={handleAddPlaceClick}
                 onCardClick={handleCardClick}
                 onCardLike={handleCardLike}
-                // onCardDelete={handleTrashClick}
+                onCardDelete={handleCardDelete}
                 currentUser={currentUser}
                 cards={cards}
-               
               />
             )}
           />
-
 
           <Route
             path="/sign-in"
@@ -359,8 +335,6 @@ function App(props) {
               />
             }
           />
-
-
 
           <Route
             path="/sign-up"
@@ -386,8 +360,6 @@ function App(props) {
               )
             }
           />
-
-          {/* <Route path="/sign-in" element={<Login onLogin={handleLogin} />} /> */}
 
         </Routes>
 
@@ -419,7 +391,6 @@ function App(props) {
           isOpen={isFullImagePopupOpen}
           onClose={closeAllPopups}
         />
-
 
         <InfoTooltip
           isRegister={isRegister}

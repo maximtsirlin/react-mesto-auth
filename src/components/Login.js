@@ -44,9 +44,7 @@ const Login = (props) => {
                             type='password'
                             className='login__input'
                             placeholder='Пароль' 
-                            
                             id="password__input"
-                       
                             name="password"
                             defaultValue=""
                             minLength="2"

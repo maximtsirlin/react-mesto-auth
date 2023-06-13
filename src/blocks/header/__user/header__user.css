@@ -1,0 +1,13 @@
+.header__user {
+    display: flex;
+    gap: 24px;
+    min-height: 22px;
+    padding-top: 20px;
+}
+
+@media screen and (max-width: 400px) {
+   .header__user {
+    flex-direction: column;
+    margin: auto;
+   } 
+}

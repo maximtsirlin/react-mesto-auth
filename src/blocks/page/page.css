@@ -5,4 +5,5 @@
   font-family: Inter, Arial, sans-serif;
   color: white;
   padding: 0 2%;
+  min-height: 100vh;
 }
