@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Switch, Redirect, useHistory, Routes } from 'react-router-dom';
+import { Route, Switch, Redirect, Navigate, useNavigate, Routes } from 'react-router-dom';
 
 
 import api from '../utils/Api.js';
@@ -36,9 +36,142 @@ function App(props) {
   const [email, setEmail] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [userData, setUserData] = useState({});
+
+
+  const [isOpenInfoTooltip, setIsOpenInfoTooltip] = useState(false);
+  const [isRegister, setIsRegister] = useState({
+    status: "",
+    message: "",
+  });
+
+  const navigate = useNavigate();
+
+
+  // const [isSuccess, setIsSuccess] = useState(false);
+  // const [userEmail, setUserEmail] = useState('');
+
   const handleEditProfileClick = () => setEditProfilePopupOpen(true);
   const handleAddPlaceClick = () => setAddPlacePopupOpen(true)
   const handleEditAvatarClick = () => setEditAvatarPopupOpen(true);
+
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
+        .then(([user, cards]) => {
+          setCurrentUser(user);
+          setCards(cards);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+    }
+  }, [isLoggedIn]);
+
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    setToken(jwt);
+  }, [token]);
+
+
+  useEffect(() => {
+    if (!token || isLoggedIn) {
+      return;
+    }
+    auth
+      .getContent(token)
+      .then((user) => {
+        setUserData(user.data);
+        setIsLoggedIn(true);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [token, isLoggedIn, navigate]);
+
+
+
+
+
+
+
+  const handleRegister = (email, password) => {
+    auth
+      .register(email, password)
+      .then(() => {
+        setIsOpenInfoTooltip(true);
+        setIsRegister({
+          status: true,
+          message: "Вы успешно зарегистрировались!",
+        });
+        navigate("/");
+        navigate("/sign-in", { replace: true });
+      })
+      .catch((err) => {
+        setIsOpenInfoTooltip(true);
+        setIsRegister({
+          status: false,
+          message: "Что-то пошло не так! Попробуйте ещё раз.",
+        });
+        console.log(err);
+      });
+  };
+
+ 
+
+ 
+
+  const handleLogin = (email, password) => {
+    auth
+      .authorize(email, password)
+      .then((res) => {
+        setToken(res.token);
+        localStorage.setItem("jwt", res.token);
+
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoginError("Что-то пошло не так! Попробуйте ещё раз.");
+      });
+  };
+
+
+  const logOut = () => {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    setToken("");
+    setUserData({});
+    navigate("/sign-in");
+  };
+
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+
+    if (jwt) {
+      auth
+        .getContent(jwt)
+        .then((res) => {
+          if (res) {
+            setEmail(res.data.email);
+            setLoggedIn(true);
+            navigate('/');
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [navigate]);
+
+
+
+
 
 
   useEffect(() => {
@@ -48,9 +181,9 @@ function App(props) {
         setCards(initialCards);
       })
       .catch((err) => console.log(err));
-      if (localStorage.getItem('jwt')){
-        setLoggedIn(true)
-      }
+    if (localStorage.getItem('jwt')) {
+      setLoggedIn(true)
+    }
   }, [])
 
 
@@ -160,6 +293,14 @@ function App(props) {
     setHamburgerMenu((prevHamburgerMenuState) => !prevHamburgerMenuState);
   }
 
+
+
+  //handleSignout - передается в компонент Header, в котором будет кнопка выхода, 
+  //при нажатии на кнопку выхода происходит очистка хранилища, перенаправление на 
+  //страницу входа и очистка стейта, отвечающего за состояние авторизации
+
+
+
   function onSignOut() {
     // localStorage.removeItem('jwt');
     // setLoggedIn(false);
@@ -168,7 +309,7 @@ function App(props) {
   }
 
   function onSignOut() {
-   
+
   }
 
   return (
@@ -183,12 +324,13 @@ function App(props) {
           onSignOut={onSignOut}
         />
 
-        <Header />
+        <Header logOut={logOut} userData={userData}/>
         <Routes>
           <Route
             path="/"
             element={(
               <ProtectedRoute
+                loggedIn={isLoggedIn}
                 element={Main}
                 onEditAvatar={handleEditAvatarClick}
                 onEditProfile={handleEditProfileClick}
@@ -198,17 +340,58 @@ function App(props) {
                 // onCardDelete={handleTrashClick}
                 currentUser={currentUser}
                 cards={cards}
-                loggedIn={loggedIn}
+               
               />
             )}
           />
-          
-          <Route path="/sign-up" element={<Register />} />
-          <Route path="/sign-in" element={<Login />} />
+
+
+          <Route
+            path="/sign-in"
+            element={
+              <Login
+                isloggedIn={isLoggedIn}
+                handleLogin={handleLogin}
+                errorMessage={loginError}
+                onClose={closeAllPopups}
+                title="Вход"
+                buttonText="Войти"
+              />
+            }
+          />
+
+
+
+          <Route
+            path="/sign-up"
+            element={
+              <Register
+                isloggedIn={isLoggedIn}
+                onRegister={()=>(alert(33))}
+                handleRegister={handleRegister}
+                onClose={closeAllPopups}
+                title={"Регистрация"}
+                buttonText={"Зарегистрироваться"}
+              />
+            }
+          />
+
+          <Route
+            path="/*"
+            element={
+              isLoggedIn ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Navigate to="/sign-in" replace />
+              )
+            }
+          />
+
+          {/* <Route path="/sign-in" element={<Login onLogin={handleLogin} />} /> */}
 
         </Routes>
-        
-        <Footer />
+
+        {isLoggedIn && <Footer />}
 
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
@@ -237,12 +420,13 @@ function App(props) {
           onClose={closeAllPopups}
         />
 
-        {/* <InfoTooltip
-        isOpen={isInfoTooltipPopupOpen}
-        onClose={closeAllPopups}
-      // isSuccess={}
-      /> */}
 
+        <InfoTooltip
+          isRegister={isRegister}
+          isOpen={isOpenInfoTooltip}
+          onClose={closeAllPopups}
+          alt={"Статус"}
+        />
       </div>
     </CurrentUserContext.Provider>
 
