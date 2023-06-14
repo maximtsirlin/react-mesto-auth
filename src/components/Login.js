@@ -51,6 +51,7 @@ const Login = (props) => {
                             maxLength="200"
                             required
                             onChange={handleAddPassword}
+                            
                             />
                         <span className='auth__input-error'></span>
                     </div>
