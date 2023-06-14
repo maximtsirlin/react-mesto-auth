@@ -8,6 +8,9 @@
 @import url(./blocks/header/__auth-email/header__auth-email.css);
 @import url(./blocks/header/__button/header__button.css);
 @import url(./blocks/header/__user/header__user.css);
+@import url(./blocks/header/__hamburger-button/header__hamburger-button.css);
+@import url(./blocks/header/__hamburger-button/_active/header__hamburger-button_active.css);
+
 
 
 @import url(./blocks/profile/profile.css);

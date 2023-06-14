@@ -1,7 +1,6 @@
 .popup__icons{
     width: 120px;
     height: 120px;
-    background-image: url(../../../images/icon-error.svg);
     background-repeat: no-repeat;
   
     margin: 60px auto 0;

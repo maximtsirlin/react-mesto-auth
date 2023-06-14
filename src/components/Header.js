@@ -1,8 +1,8 @@
 import logo from '../images/logo.svg';
 import React from 'react';
-import { Route, Routes, Link } from 'react-router-dom'
+import { Route, Routes, Link } from 'react-router-dom';
 
-function Header({ userData, logOut }) {
+function Header({ userData, logOut, onHamburgerMenuClick, hamburgerStatus }) {
   return (
     <header className="header">
       <img
@@ -11,8 +11,6 @@ function Header({ userData, logOut }) {
         className="header__logo"
       />
       <Routes>
-
-
         <Route path="/sign-in" element={
           <>
             <Link className="header__auth-link" to="/sign-up">
@@ -28,7 +26,6 @@ function Header({ userData, logOut }) {
             </Link>
           </>
         } />
-
 
         <Route
           exact
@@ -46,12 +43,19 @@ function Header({ userData, logOut }) {
             </>
           } />
 
-
-
+        <Route
+          exact
+          path="/"
+          element={
+            <>
+              <button
+                className={`${hamburgerStatus ? "header__hamburger-button_active" : "header__hamburger-button"}`}
+                onClick={onHamburgerMenuClick}
+                type="button">
+              </button>
+            </>
+          } />
       </Routes>
-
-
-
     </header>
   );
 }

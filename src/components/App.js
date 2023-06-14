@@ -15,7 +15,10 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import Login from './Login'
 import Register from './Register'
 import ProtectedRoute from './ProtectedRoute'
+
 import Hamburger from './Hamburger';
+
+
 import InfoTooltip from './InfoTooltip'
 
 import * as auth from '../utils/auth';
@@ -31,7 +34,8 @@ function App(props) {
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [hamburgerMenu, setHamburgerMenu] = useState(false);
+
+
   const [email, setEmail] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -40,6 +44,7 @@ function App(props) {
   const [loginError, setLoginError] = useState("");
   const [userData, setUserData] = useState({});
 
+  const [isHamburgerOpen, setHamburgerOpen] = useState(false);
 
   const [isOpenInfoTooltip, setIsOpenInfoTooltip] = useState(false);
   const [isRegister, setIsRegister] = useState({
@@ -72,13 +77,14 @@ function App(props) {
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     setToken(jwt);
-  }, [token]);
+  }, []);
 
 
   useEffect(() => {
-    if (!token || isLoggedIn) {
+    if (!token) {
       return;
     }
+
     auth
       .getContent(token)
       .then((user) => {
@@ -89,7 +95,7 @@ function App(props) {
       .catch((err) => {
         console.log(err);
       });
-  }, [token, isLoggedIn, navigate]);
+  }, [token]);
 
 
 
@@ -115,7 +121,7 @@ function App(props) {
       });
   };
 
- 
+
 
   const handleLogin = (email, password) => {
     auth
@@ -139,39 +145,42 @@ function App(props) {
     setToken("");
     setUserData({});
     navigate("/sign-in");
+
   };
 
+  const handleHamburgerMenuClick = () => {
+    setHamburgerOpen(!isHamburgerOpen);
+  };
+  // useEffect(() => {
+  //   const jwt = localStorage.getItem('jwt');
 
-  useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-
-    if (jwt) {
-      auth
-        .getContent(jwt)
-        .then((res) => {
-          if (res) {
-            setEmail(res.data.email);
-            setLoggedIn(true);
-            navigate('/');
-          }
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [navigate]);
+  //   if (jwt) {
+  //     auth
+  //       .getContent(jwt)
+  //       .then((res) => {
+  //         if (res) {
+  //           setEmail(res.data.email);
+  //           setLoggedIn(true);
+  //           navigate('/');
+  //         }
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // }, [navigate]);
 
 
 
-  useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([userInfo, initialCards]) => {
-        setCurrentUser(userInfo)
-        setCards(initialCards);
-      })
-      .catch((err) => console.log(err));
-    if (localStorage.getItem('jwt')) {
-      setLoggedIn(true)
-    }
-  }, [])
+  // useEffect(() => {
+  //   Promise.all([api.getUserInfo(), api.getInitialCards()])
+  //     .then(([userInfo, initialCards]) => {
+  //       setCurrentUser(userInfo)
+  //       setCards(initialCards);
+  //     })
+  //     .catch((err) => console.log(err));
+  //   if (localStorage.getItem('jwt')) {
+  //     setLoggedIn(true)
+  //   }
+  // }, [])
 
 
 
@@ -274,35 +283,40 @@ function App(props) {
 
   };
 
-  function handleHamburgerMenuClick() {
-    setHamburgerMenu((prevHamburgerMenuState) => !prevHamburgerMenuState);
-  }
 
 
-  function onSignOut() {
-    // localStorage.removeItem('jwt');
-    // setLoggedIn(false);
-    // setHamburgerMenu(false);
-    // history.push('/sign-in');
-  }
 
-  function onSignOut() {
+  // function onSignOut() {
+  //   // localStorage.removeItem('jwt');
+  //   // setLoggedIn(false);
+  //   // setHamburgerMenu(false);
+  //   // history.push('/sign-in');
+  // }
 
-  }
+  // function onSignOut() {
+
+  // }
 
   return (
 
     <CurrentUserContext.Provider value={currentUser}>
 
       <div className="page">
-        <Hamburger
-          isOpen={hamburgerMenu}
+
+        {/* <Hamburger
+          isOpen={isHamburgerOpen}
+          email={email}
+          onSignOut={logOut}
+        /> */}
+
+        <Header
+          logOut={logOut}
+          userData={userData}
+          hamburgerStatus={isHamburgerOpen}
           onHamburgerMenuClick={handleHamburgerMenuClick}
           email={email}
-          onSignOut={onSignOut}
         />
 
-        <Header logOut={logOut} userData={userData}/>
         <Routes>
           <Route
             path="/"
@@ -341,7 +355,7 @@ function App(props) {
             element={
               <Register
                 isloggedIn={isLoggedIn}
-                onRegister={()=>(alert(33))}
+                onRegister={() => (alert(33))}
                 handleRegister={handleRegister}
                 onClose={closeAllPopups}
                 title={"Регистрация"}
@@ -405,3 +419,4 @@ function App(props) {
 }
 
 export default App;
+

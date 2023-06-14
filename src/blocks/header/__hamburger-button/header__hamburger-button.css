@@ -1,0 +1,11 @@
+.header__hamburger-button {
+    width: 24px;
+    height: 18px;
+    background-image: url('/src/images/hamburger-button.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
