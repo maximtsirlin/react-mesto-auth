@@ -52,6 +52,11 @@ function App(props) {
     message: "",
   });
 
+  const [loginErrorMessage, setLoginErrorMessage] = useState("");
+
+  const [showLoginError, setShowLoginError] = useState(false);
+
+
   const navigate = useNavigate();
 
 
@@ -129,14 +134,16 @@ function App(props) {
       .then((res) => {
         setToken(res.token);
         localStorage.setItem("jwt", res.token);
-
         navigate("/");
       })
       .catch((err) => {
+        setIsOpenInfoTooltip(true);
         console.log(err);
-        setLoginError("Что-то пошло не так! Попробуйте ещё раз.");
+        setLoginErrorMessage("Что-то пошло не так! Попробуйте ещё раз.");
+        setShowLoginError(true);
       });
   };
+
 
 
   const logOut = () => {
@@ -151,36 +158,10 @@ function App(props) {
   const handleHamburgerMenuClick = () => {
     setHamburgerOpen(!isHamburgerOpen);
   };
-  // useEffect(() => {
-  //   const jwt = localStorage.getItem('jwt');
-
-  //   if (jwt) {
-  //     auth
-  //       .getContent(jwt)
-  //       .then((res) => {
-  //         if (res) {
-  //           setEmail(res.data.email);
-  //           setLoggedIn(true);
-  //           navigate('/');
-  //         }
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [navigate]);
 
 
 
-  // useEffect(() => {
-  //   Promise.all([api.getUserInfo(), api.getInitialCards()])
-  //     .then(([userInfo, initialCards]) => {
-  //       setCurrentUser(userInfo)
-  //       setCards(initialCards);
-  //     })
-  //     .catch((err) => console.log(err));
-  //   if (localStorage.getItem('jwt')) {
-  //     setLoggedIn(true)
-  //   }
-  // }, [])
+
 
 
 
@@ -285,17 +266,6 @@ function App(props) {
 
 
 
-
-  // function onSignOut() {
-  //   // localStorage.removeItem('jwt');
-  //   // setLoggedIn(false);
-  //   // setHamburgerMenu(false);
-  //   // history.push('/sign-in');
-  // }
-
-  // function onSignOut() {
-
-  // }
 
   return (
 
@@ -411,7 +381,9 @@ function App(props) {
           isOpen={isOpenInfoTooltip}
           onClose={closeAllPopups}
           alt={"Статус"}
+          loginErrorMessage={loginErrorMessage}
         />
+
       </div>
     </CurrentUserContext.Provider>
 
